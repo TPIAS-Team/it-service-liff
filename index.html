@@ -30,7 +30,7 @@
     <script>
         // เริ่มต้นใช้งาน LIFF
         async function main() {
-            await liff.init({ liffId: "ใส่_LIFF_ID_ของคุณที่นี่" });
+            await liff.init({ liffId: "2009442518-zybqQMfm" });
             if (liff.isLoggedIn()) {
                 const profile = await liff.getProfile();
                 document.getElementById('userName').innerText = "สวัสดีคุณ: " + profile.displayName;
@@ -56,4 +56,5 @@
         }
     </script>
 </body>
+
 </html>
