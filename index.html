@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Service Report</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input, select, textarea { width: 100%; margin-bottom: 10px; padding: 10px; }
+        button { width: 100%; padding: 15px; background: #00b900; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>แจ้งปัญหา IT (โรงงาน)</h2>
+    <p id="userName">กำลังโหลดข้อมูล...</p>
+    
+    <label>ประเภทงาน:</label>
+    <select id="type">
+        <option value="Bug">แก้ Bug โปรแกรม</option>
+        <option value="DB">แก้ไขข้อมูลใน Database</option>
+        <option value="Support">Support ทั่วไป</option>
+    </select>
+
+    <label>รายละเอียด:</label>
+    <textarea id="detail" rows="4"></textarea>
+
+    <button onclick="submitJob()">ส่งข้อมูล</button>
+
+    <script>
+        // เริ่มต้นใช้งาน LIFF
+        async function main() {
+            await liff.init({ liffId: "ใส่_LIFF_ID_ของคุณที่นี่" });
+            if (liff.isLoggedIn()) {
+                const profile = await liff.getProfile();
+                document.getElementById('userName').innerText = "สวัสดีคุณ: " + profile.displayName;
+            } else {
+                liff.login();
+            }
+        }
+        main();
+
+        async function submitJob() {
+            const profile = await liff.getProfile();
+            const data = {
+                userId: profile.userId,
+                name: profile.displayName,
+                type: document.getElementById('type').value,
+                detail: document.getElementById('detail').value
+            };
+
+            // ตรงนี้ให้คุณส่ง data ไปยัง Power Automate หรือ API ของคุณ
+            console.log("ส่งข้อมูล:", data);
+            alert("บันทึกข้อมูลสำเร็จ!");
+            liff.closeWindow(); // ปิดหน้าต่าง LIFF
+        }
+    </script>
+</body>
+</html>
